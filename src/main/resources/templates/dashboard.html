@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="icon" th:href="@{images/favicon.ico}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{/js/javascript.js}"></script>
+    <script type="text/javascript" th:src="@{/js/moment.js}"></script>
+    <script type="text/javascript" th:src="@{/js/commentRecognize.js}"></script>
+    <script type="text/javascript" th:src="@{/js/pageScroll.js}"></script>
+</head>
+<body>
+<div class="bg-light rounded ">
+    <div class="row ">
+        <div class="col-lg-6 mt-3">
+            <div class="row no-gutters">
+                <div class="col-3">
+                    <img th:src="@{/images/ReapImg.png}">
+                </div>
+                <div class="col-9">
+                    <img th:src="@{/images/ReapFullFormImg.png}">
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="col-lg-6 mt-3">
+            <ul class="nav nav-pills justify-content-center">
+                <li class="nav-item mr-3">
+                    <a class="btn btn-outline-danger active" href="/dashboard">
+                        <img th:src="@{/images/DashboardIcon.png}">Dashboard
+                    </a>
+                </li>
+                <li class="nav-item mr-3">
+                    <a class="btn btn-outline-danger" href="/badges">
+                        <span class="badgeId badgeId-danger">
+                            <img src="images/whitebadge.png">
+                        </span>Badges
+                    </a>
+                </li>
+
+                <li class="nav-item mr-3">
+                    <a class="btn btn-outline-danger" href="/adminpanel">
+                        <span class="badgeId badgeId-danger">
+                            <img th:src="@{/images/whitebadge.png}">
+                        </span>Admin Panel
+                    </a>
+                </li>
+                <li class="nav-item mr-3">
+                    <button type="button" data-toggle="modal" data-target="#UserDetails">
+                        <img class="profileImg" th:src="@{${user.imagePath}}" alt="img" style="height: 32px;width:32px">
+                    </button>
+                </li>
+            </ul>
+
+        </div>
+
+       <!-- Modal -->
+        <div class="modal fade" id="UserDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">User Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table>
+                            <tr>
+                                <td>USER NAME</td>
+                                <td><span th:text="${user.firstName}"></span>&nbsp;<span th:text="${user.lastName}"></span></td>
+                            </tr>
+                            <tr>
+                                <td>EMAIL ID</td>
+                                <td th:text="${user.username}">test email</td>
+                            </tr>
+                            <tr>
+                                <td>Role</td>
+                                <td th:each="role:${user.role}"><span th:text="${role.role}"></span></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="get"  sec:authorize="isAuthenticated()">
+                            <input class="form-control mr-sm-2" type="hidden" />
+                            <button class="btn btn-primary my-2 my-sm-0" type="submit">Logout</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--Modal2-->
+
+        <div class="modal fade" id="deleteuser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalLabel2">User Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table>
+                            <h2>DELETE USER</h2>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--MOdal3-->
+
+
+        <div class="modal fade" id="downloadcsv" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalLabel">User Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table>
+                            <h2>DOWNLOAD USER DETAILS</h2>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!--POPUP-->
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Modal Header</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Some text in the modal.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="row mt-4" >
+        <div class="col-lg-8 ml-3">
+            <div class="card text-left mb-4">
+                    <div class="card-header bg-primary">
+                        <div class="float-left"><img th:src="@{/images/whitebadge.png}"></div>
+                        <div class="float-left text-light">RECOGNIZE NEWER</div>
+
+                    </div>
+                    <form id="form" th:Object="${comment}" autocomplete="on">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="input-container">
+                                    <input type="hidden" id="senderId" name="senderId" th:value="${user.username}"/>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user icon"></i></span>
+                                        <input type="email" list="names" class="form-control col-lg-10" th:field="*{receiverId}" placeholder="Select a Newer">
+                                        <datalist id="names">
+                                            <option th:each="u:${users}" th:value="${u.username}" th:unless="${user.userId==u.userId}">
+                                                <span th:text="${u.firstName}"></span>
+                                                <span th:text="${u.lastName}"></span>(
+                                                <span th:text="${u.username}"></span>)</option>
+                                        </datalist>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="dropdown float-left ">
+                                    <div class="form-group">
+                                        <select class="form-control" th:field="*{badgeId}">
+                                            <option label="Select a Badge" value=""></option>
+                                            <option class="dropdown-item"  th:each="quota:${user.quota}"  th:value="${quota.badgeId.badgeId}" th:if="${quota.quantity>0}" >
+                                                <span th:text="${quota.badgeId.badge}"></span>
+                                                <span th:text="${quota.quantity}"></span>
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="col-lg-3">
+                                <div class="dropdown float-left ">
+                                    <div class="form-group">
+                                        <select class="form-control" id="exampleFormControlSelect2">
+                                            <option label="karma/core values"></option>
+                                            <option class="dropdown-item"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>-->
+                        </div>
+
+                        <div class="row">
+                            <div class="Cal">
+                                <span>Reason:</span>
+                            </div>
+                            <div class="cal-lg-12">
+                                <textarea  th:field="*{message}" name="message" cols="90" rows="8" placeholder="Give recognize message/message" style="width: 100%"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-right ">
+                        <button type="submit" id="recognize" class="btn btn-primary">RECOGNIZE</button>
+                    </div>
+                </form>
+            </div>
+            <div>
+                <div id="date" class="card text-left">
+                    <div class="card-header bg-primary">
+                        <div class="float-left mr-4">
+                            <div class="float-left"> <img th:src="@{/images/whitebadge.png}"></div>
+                            <div class="float-left text-light"> WALL OF FAME</div>
+
+                        </div>
+                        <div class="float-left">
+                            <input type="search" name="searchbox" placeholder="Search" class="form-control">
+                        </div>
+                        <div class="dropdown float-left ml-4">
+                            <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown">
+                                Business Unit
+                            </button>
+                            <div class="dropdown-menu ">
+                                <a class="dropdown-item" href="#">UNIT 1</a>
+                                <a class="dropdown-item" href="#">UNIT 1</a>
+                                <a class="dropdown-item" href="#">UNIT 1</a>
+                            </div>
+                        </div>
+                        <div class="dropdown float-left ml-5">
+                            <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown">
+                                Region
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Region 1</a>
+                                <a class="dropdown-item" href="#">Region 1</a>
+                                <a class="dropdown-item" href="#">Region 1</a>
+                            </div>
+                        </div>
+                        <div >
+                            <button type="button" data-toggle="modal" data-target="#deleteuser" class="ml-3"><img th:src="@{images/icons8-trash-32.png}" /></button>
+                            <button type="button" data-toggle="modal" data-target="#downloadcsv" class="ml-3"><img th:src="@{images/download.png}" /></button>
+
+                        </div>
+                    </div>
+                    <div id="card" class="card-body"></div>
+                    <!--<div id="card" class="card-body" th:each="transaction:${pageData.content}">
+                        <div class="media">
+                            <img class="d-flex mr-3" th:src="@{${transaction.receiver.imagePath}}"  style="height: 50px">
+                            <div class="media-body" >
+                                <span th:text="${transaction.receiver.firstName}"></span>
+                                <span th:text="${transaction.receiver.lastName}"></span>
+                                has received
+                                <span class="badge badge-success" th:text="${transaction.badge.badge}"></span>
+                                from
+                                <span th:text="${transaction.sender.firstName}"></span>
+                                <span th:text="${transaction.sender.lastName}"></span> <br/>
+                                Reason: <span th:text="${transaction.message}"></span>
+                                <br/>
+                                <br/>
+                            </div>
+                        </div>
+                        <p class="card-link" th:text="${transaction.date}"></p>
+                        <hr/>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 ml-4">
+            <div class="card text-left ">
+                <div class="card-header bg-primary ">
+                    <div class="float-left">
+                        <img th:src="@{/images/whitebadge.png}">
+                    </div>
+                    <div class="float-left text-light">
+                        MY BADGES
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <div class="media">
+                        <img class="d-flex mr-3" th:src="@{${user.imagePath}}" style="height: 50px;width: 50px;">
+                     <div class="media-body">
+                         <h6>Vineet Chaudhary</h6>
+                         <img th:src="@{/images/OrangeBadge.png}" class="mr-3">
+                         <img th:src="@{/images/GreyBadge.png}" class="mr-3">
+                         <img th:src="@{/images/BrownBadge.png}" >
+                         <br>
+                         <span class="mr-4">
+                             2
+                         </span>
+                         <span class="mr-4">
+                             2
+                         </span>
+                         <span>
+                             2
+                         </span>
+
+                     </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="card text-left mt-5">
+                <div class="card-header bg-primary ">
+                    <div class="float-left">
+                        <img th:src="@{/images/whitebadge.png}">
+                    </div>
+                    <div class="float-left text-light">
+                        NEWER'S BOARD(LAST & DAYS)
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <div class="media">
+                        <img class="d-flex mr-3" th:src="@{/images/default_Male.jpg}" style="height: 50px;width: 50px;">
+                        <div class="media-body">
+                            <h6>Vineet Chaudhary</h6>
+                            <img th:src="@{/images/OrangeBadge.png}" class="mr-3">
+                            <img th:src="@{/images/GreyBadge.png}" class="mr-3">
+                            <img th:src="@{/images/BrownBadge.png}" >
+                            <br>
+                            <span class="mr-4">
+                             2
+                         </span>
+                            <span class="mr-4">
+                             2
+                         </span>
+                            <span>
+                             2
+                         </span>
+
+                        </div>
+
+                    </div>
+                    <div class="media">
+                        <img class="d-flex mr-3" th:src="@{/images/default_Male.jpg}" style="height: 50px">
+                        <div class="media-body">
+                            <h6>Vineet Chaudhary</h6>
+                            <img th:src="@{/images/OrangeBadge.png}" class="mr-3">
+                            <img th:src="@{/images/GreyBadge.png}" class="mr-3">
+                            <img th:src="@{/images/BrownBadge.png}" >
+                            <br>
+                            <span class="mr-4">
+                                 2
+                             </span>
+                            <span class="mr-4">
+                                 2
+                             </span>
+                            <span>
+                                 2
+                             </span>
+
+                        </div>
+                    </div>
+                    <div class="media">
+                        <img class="d-flex mr-3" th:src="@{/images/default_Male.jpg}" style="height: 50px">
+                        <div class="media-body">
+                            <h6>Vineet Chaudhary</h6>
+                            <img th:src="@{/images/OrangeBadge.png}" class="mr-3">
+                            <img th:src="@{/images/GreyBadge.png}" class="mr-3">
+                            <img th:src="@{/images/BrownBadge.png}" >
+                            <br>
+                            <span class="mr-4">
+                                 2
+                             </span>
+                            <span class="mr-4">
+                                 2
+                             </span>
+                            <span>
+                                 2
+                             </span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <img class="d-flex mr-3" th:src="@{/images/default_Male.jpg}" style="height: 50px">
+                        <div class="media-body">
+                            <h6>Vineet Chaudhary</h6>
+                            <img th:src="@{/images/OrangeBadge.png}" class="mr-3">
+                            <img th:src="@{/images/GreyBadge.png}" class="mr-3">
+                            <img th:src="@{/images/BrownBadge.png}" >
+                            <br>
+                            <span class="mr-4">
+                             2
+                         </span>
+                            <span class="mr-4">
+                             2
+                         </span>
+                            <span>
+                             2
+                         </span>
+
+                        </div>
+
+                    </div>
+                    <div class="media">
+                        <img class="d-flex mr-3" th:src="@{/images/default_Male.jpg}" style="height: 50px">
+                        <div class="media-body">
+                            <h6>Vineet Chaudhary</h6>
+                            <img th:src="@{/images/OrangeBadge.png}" class="mr-3">
+                            <img th:src="@{/images/GreyBadge.png}" class="mr-3">
+                            <img th:src="@{/images/BrownBadge.png}" >
+                            <br>
+                            <span class="mr-4">
+                                 2
+                             </span>
+                            <span class="mr-4">
+                                 2
+                             </span>
+                            <span>
+                                 2
+                             </span>
+
+                        </div>
+                    </div>
+                    <div class="media">
+                        <img class="d-flex mr-3" th:src="@{/images/default_Male.jpg}" style="height: 50px">
+                        <div class="media-body">
+                            <h6>Vineet Chaudhary</h6>
+                            <img th:src="@{/images/OrangeBadge.png}" class="mr-3">
+                            <img th:src="@{/images/GreyBadge.png}" class="mr-3">
+                            <img th:src="@{/images/BrownBadge.png}" >
+                            <br>
+                            <span class="mr-4">
+                                 2
+                             </span>
+                            <span class="mr-4">
+                                 2
+                             </span>
+                            <span>
+                                 2
+                             </span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <img class="d-flex mr-3" th:src="@{/images/default_Male.jpg}" style="height: 50px">
+                        <div class="media-body">
+                            <h6>Vineet Chaudhary</h6>
+                            <img th:src="@{/images/OrangeBadge.png}" class="mr-3">
+                            <img th:src="@{/images/GreyBadge.png}" class="mr-3">
+                            <img th:src="@{/images/BrownBadge.png}" >
+                            <br>
+                            <span class="mr-4">
+                             2
+                         </span>
+                            <span class="mr-4">
+                             2
+                         </span>
+                            <span>
+                             2
+                         </span>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+            <div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>REAP</title>
+    <link rel="icon" th:href="@{images/favicon.ico}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <link rel="stylesheet" th:href="@{css/application.css}">
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+</head>
+</head>
+
+<nav class="navbar navbar-light bg-white navbar-expand-lg sticky-top">
+    <a class="navbar-brand" href="#">
+        <img src="/images/reap-logo.png" height="30" class="d-inline-block align-top" alt="reap-logo">
+    </a>
+    <!-- Hide on screens smaller than lg -->
+    <span class="navbar-text d-none d-lg-block">
+    <span class="reap-text" style="color: #bd3fb4">reward.</span>
+    <span class="reap-text" style="color: #004ba1">earn.</span>
+    <span class="reap-text" style="color: #f03434">acknowledge.</span>
+    <span class="reap-text" style="color: #eacb11">praise</span>
+  </span>
+</nav>
+
+<body>
+
+<div class="container" id="main">
+    <div th:if="${error}">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong th:text="${error}"></strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    <div th:if="${success}">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong th:text="${success}"></strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    <h1 class="display-4">Redeemable items</h1>
+    <div class="table-responsive">
+        <table class="text-center table table-light table-bordered">
+            <thead>
+            <tr class="card-header">
+                <th scope="col">Photo</th>
+                <th scope="col">Name</th>
+                <th scope="col">Points worth</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody th:each="item: ${itemList}">
+            <form th:action="@{'/checkAvailability/' + ${item.id}}" method="get">
+            <tr>
+                    <td><img class="img-fluid user-photo" th:src="${item.imageUrl}"/></td>
+                    <input type="hidden" th:value="${item.id}"/>
+                    <td th:text="${item.name}"></td>
+                    <td th:text="${item.pointsWorth}"></td>
+                    <td>
+                        <button class="btn btn-success btn-lg btn-block" type="submit">Purchase</button>
+                    </td>
+            </tr>
+            </form>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('input[type="file"]').change(function (e) {
+            var fileName = e.target.files[0].name;
+            $("#inputPhoto").text(fileName);
+            console.log(fileName);
+        });
+    });
+</script>
+
+
+</body>
+</html>
