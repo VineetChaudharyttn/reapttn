@@ -21,6 +21,17 @@ public class User {
     private String username;
     private String password;
     private boolean active;
+    private String imagePath;
+    private String resetToken;
+    @Column(columnDefinition = "int default 0")
+    private Integer goldBadge;
+    @Column(columnDefinition = "int default 0")
+    private Integer silverBadge;
+    @Column(columnDefinition = "int default 0")
+    private Integer bronzeBadge;
+    @Column(columnDefinition = "int default 0")
+    private Integer point;
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "USER_ID"),
             inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
@@ -31,11 +42,8 @@ public class User {
     @JsonIgnore
     private List<Quota> quota=new ArrayList<Quota>();
 
-    private String imagePath;
     @Transient
     private MultipartFile image;
-
-    private String resetToken;
 
     public User() {
 
@@ -150,9 +158,48 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", active=" + active +
-                ", role=" + role +
                 ", imagePath='" + imagePath + '\'' +
+                ", resetToken='" + resetToken + '\'' +
+                ", goldBadge=" + goldBadge +
+                ", silverBadge=" + silverBadge +
+                ", bronzeBadge=" + bronzeBadge +
+                ", point=" + point +
+                ", role=" + role +
+                ", quota=" + quota +
                 ", image=" + image +
                 '}';
     }
+
+    public Integer getGoldBadge() {
+        return goldBadge;
+    }
+
+    public void setGoldBadge(Integer goldBadge) {
+        this.goldBadge = goldBadge;
+    }
+
+    public Integer getSilverBadge() {
+        return silverBadge;
+    }
+
+    public void setSilverBadge(Integer silverBadge) {
+        this.silverBadge = silverBadge;
+    }
+
+    public Integer getBronzeBadge() {
+        return bronzeBadge;
+    }
+
+    public void setBronzeBadge(Integer bronzeBadge) {
+        this.bronzeBadge = bronzeBadge;
+    }
+
+    public Integer getPoint() {
+        return point;
+    }
+
+    public void setPoint(Integer point) {
+        this.point = point;
+    }
+
 }

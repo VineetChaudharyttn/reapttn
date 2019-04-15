@@ -32,6 +32,7 @@ public class CustomUserDetails extends User implements UserDetails {
         return super.getLastName();
     }
 
+
     public boolean isActive(){
         return super.isActive();
     }
@@ -39,6 +40,7 @@ public class CustomUserDetails extends User implements UserDetails {
     public String getImagePath() {
         return super.getImagePath();
     }
+
 
     @Override
     public String getPassword() {

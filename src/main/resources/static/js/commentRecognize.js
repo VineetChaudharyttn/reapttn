@@ -21,7 +21,6 @@ $(document).ready(function () {
 
         for(i=0;i<p.length;i++)
         {
-            console.log(p[i].innerText);
             p[i].textContent=moment(p[i].innerText, "YYYYMMDDhhmma").fromNow();
 
         }

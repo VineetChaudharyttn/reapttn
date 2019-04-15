@@ -17,32 +17,45 @@
             crossorigin="anonymous"></script>
     <script type="text/javascript" th:src="@{js/confirmPass.js}"></script>
     <script type="text/javascript" th:src="@{js/chackMailAvailability.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('input[type="file"]').change(function (e) {
+                var fileName = e.target.files[0].name;
+                $("#inputPhoto").text(fileName);
+                console.log(fileName);
+            });
+        });
+    </script>
 </head>
 <body>
-<nav class="navbar navbar-light bg-white navbar-expand-lg sticky-top">
-    <a class="navbar-brand" href="#">
-        <img th:src="@{images/reap-logo.png}" height="30" class="d-inline-block align-top" alt="reap-logo">
-    </a>
-    <!-- Hide on screens smaller than lg -->
-    <span class="navbar-text d-none d-lg-block">
-    <span class="reap-text" style="color: #bd3fb4">reward.</span>
-    <span class="reap-text" style="color: #004ba1">earn.</span>
-    <span class="reap-text" style="color: #f03434">acknowledge.</span>
-    <span class="reap-text" style="color: #eacb11">praise</span>
-  </span>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false" aria-label="Toggle navigation">
-        <span style="color: #fff;" class="navbar-toggler-icon">sfdsfs</span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
+<div class="row navbar">
+    <div class="col-xl-6 mt-3">
+        <div class="row no-gutters">
+            <div class="col-3">
+                <img th:src="@{/images/ReapImg.png}">
+            </div>
+            <div class="col-9">
+                <img th:src="@{/images/ReapFullFormImg.png}">
+            </div>
+        </div>
+
+
+
+    </div>
+    <div class="col-xl-6 mt-3">
+        <ul class="nav nav-pills justify-content-end">
             <li class="nav-item">
                 <a class="btn btn-outline-danger" href="http://newersworld.tothenew.com/myProfile">Back to Newers World</a>
             </li>
         </ul>
     </div>
-</nav>
+</div>
 <div class="container mx-auto my-5 p-4" style="background: #fff; width: 70%;">
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -60,13 +73,13 @@
                   autocomplete="off">
                 <div class="newer-row form-label-group">
                     <input type="email" th:field="*{username}" class="form-control"  maxlength="35" placeholder="Email address"
-                           autofocus>
+                           autofocus required>
                 </div>
 
                 <div class="newer-row form-label-group">
                     <input type="password" th:field="*{password}" id="password" class="form-control"  maxlength="10" placeholder="Password" >
                 </div>
-                <div class="newer-row">
+                <div class="newer-row" required>
                     <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#forgotPassword">Forgot Password</a>
                 </div>
                 <div class="newer-row">
@@ -120,21 +133,7 @@
         </div>
     </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-<script type="text/javascript">
-        $(document).ready(function () {
-            $('input[type="file"]').change(function (e) {
-                var fileName = e.target.files[0].name;
-                $("#inputPhoto").text(fileName);
-                console.log(fileName);
-            });
-        });
-</script>
+
 
 
         <div class="modal fade" id="forgotPassword" role="dialog" >

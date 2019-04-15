@@ -14,7 +14,7 @@ public class Bootstrap {
     @Autowired
     ItemService itemService;
 
-    @EventListener(ContextRefreshedEvent.class)
+//        @EventListener(ContextRefreshedEvent.class)
     void setUp() {
 
         Item item1 = new Item("/images/items/tshirt.jpg", "T-Shirt", 100, 50);

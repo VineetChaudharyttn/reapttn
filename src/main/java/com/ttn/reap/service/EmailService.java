@@ -12,12 +12,11 @@ public class EmailService {
     @Autowired
     public JavaMailSender javaMailSender;
 
-    public void sandMail(User user,String appUrl){
+    public void sandMail(User user,String message,String subject){
         SimpleMailMessage passwordResetEmail = new SimpleMailMessage();
         passwordResetEmail.setTo(user.getUsername());
-        passwordResetEmail.setSubject("Password Reset Request");
-        passwordResetEmail.setText("To reset your password, click the link below:\n" + appUrl
-                + ":8080/reset?token=" + user.getResetToken());
+        passwordResetEmail.setSubject(subject);
+        passwordResetEmail.setText(message);
 
         javaMailSender.send(passwordResetEmail);
     }

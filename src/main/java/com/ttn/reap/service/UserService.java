@@ -1,5 +1,6 @@
 package com.ttn.reap.service;
 
+import com.ttn.reap.entity.Role;
 import com.ttn.reap.entity.User;
 import com.ttn.reap.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,6 @@ public class UserService {
     @Autowired
     RoleService roleService;
     public void register(User user){
-//        user.setPassword(BCrypt.hashpw(user.getPassword(),BCrypt.gensalt()));
         userRepo.save(user);
     }
 
@@ -55,10 +55,13 @@ public class UserService {
     }
 
     public void changeUserRole(int userId, String selectedRole) {
-        Optional<User> user = userRepo.findByUserId(userId);
-        user.get().setRole(Arrays.asList(roleService.findByRole(selectedRole)));
-        System.out.println(user.get());
-        //userRepo.save(user.get());
+        Optional<User> userOptional = userRepo.findByUserId(userId);
+        User user=userOptional.orElse(null);
+        List<Role> list=user.getRole();
+        list.add(roleService.findByRole(selectedRole));
+        user.setRole(list);
+        System.out.println(user);
+        userRepo.save(user);
 
     }
 }

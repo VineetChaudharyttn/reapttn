@@ -22,7 +22,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Controller
-public class TestPage {
+public class ReapController {
 
     @Autowired
     UserService userService;
@@ -72,21 +72,11 @@ public class TestPage {
         model.addAttribute("users",userService.findAll());
         model.addAttribute("comment",new CommentCO());
         model.addAttribute("badges",badgeService.findBadges());
-//        Page<BadgeTransaction> page= badgeTransactionService.findTransaction(pageNo);
-//        model.addAttribute("pageData",page);
+        List<BadgeTransaction> list= badgeTransactionService.findTransaction();
+        model.addAttribute("pageData",list);
         return "dashboard";
     }
 
-    @PostMapping("/page")
-    @ResponseBody
-    public Page<BadgeTransaction> page(Integer pageNo){
-        Page<BadgeTransaction> page= badgeTransactionService.findTransaction(0);
-        List<BadgeTransaction> transactionList =page.getContent();
-//        Gson gson=new Gson();
-//        System.out.println(gson.toJson(transactionList.get(1)));
-        System.out.println("hit cont");
-        return page;
-    }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping("/adminpanel")
@@ -105,6 +95,8 @@ public class TestPage {
         User user = new User();
         user = userService.findByName(userDetails.getUsername()).orElse(user);
         model.addAttribute("user", user);
+        List<BadgeTransaction> list= badgeTransactionService.findTransaction();
+        model.addAttribute("pageData",list);
         return "badges";
     }
 
@@ -123,8 +115,10 @@ public class TestPage {
             userService.register(user);
 
             String appUrl = request.getScheme() + "://" + request.getServerName();
-            System.out.println(appUrl);
-            emailService.sandMail(user, appUrl);
+            String message="To reset your password, click the link below:\n" + appUrl
+                    + ":8080/reset?token=" + user.getResetToken();
+            String subject="Password Reset Request";
+            emailService.sandMail(user,message,subject);
 
             model.addAttribute("successMessage", "A password reset link has been sent to " + user.getUsername());
         }
@@ -165,6 +159,11 @@ public class TestPage {
     }
 
 
+
+    @GetMapping("/test")
+    public String test(){
+        return "test";
+    }
 
 }
 

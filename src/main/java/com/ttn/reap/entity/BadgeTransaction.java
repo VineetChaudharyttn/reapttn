@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class BadgeTransaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    Integer id;
     @ManyToOne
     @JoinColumn(name = "sender_id")
     User sender;
@@ -19,11 +19,11 @@ public class BadgeTransaction {
     @ManyToOne
     Badge badge;
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -53,7 +53,6 @@ public class Quota {
     public String toString() {
         return "Quota{" +
                 "quotaId=" + quotaId +
-                ", userId=" + userId +
                 ", badgeId=" + badgeId +
                 ", quantity=" + quantity +
                 '}';

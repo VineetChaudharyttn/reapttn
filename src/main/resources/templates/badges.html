@@ -6,39 +6,55 @@
     <link rel="icon" th:href="@{images/favicon.ico}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{js/SimpleDate.js}"></script>
+    <script type="text/javascript" th:src="@{js/moment.js}"></script>
 </head>
 <body>
 <div>
-    <div class="row">
+    <div class="row navbar">
         <div class="col-xl-6 mt-3">
-            <img src="images/ReapImg.png">
-            <img src="images/ReapFullFormImg.png">
+            <div class="row no-gutters">
+                <div class="col-3">
+                    <img th:src="@{/images/ReapImg.png}">
+                </div>
+                <div class="col-9">
+                    <img th:src="@{/images/ReapFullFormImg.png}">
+                </div>
+            </div>
+
+
 
         </div>
         <div class="col-xl-6 mt-3">
             <ul class="nav nav-pills justify-content-center">
-                <li class="nav-item mr-5">
-                    <a class="nav-link btn-outline-danger" href="/dashboard">
+                <li class="nav-item mr-3">
+                    <a class="btn btn-outline-danger" href="/dashboard">
                         <span class="badgeId badgeId-danger">
-                            <img th:src="@{images/DashboardIcon.png}">
+                        <img th:src="@{/images/DashboardIcon.png}">
                         </span>Dashboard
                     </a>
                 </li>
-                <li class="nav-item mr-5">
-                    <a class="nav-link btn-danger" href="/badges">
-                        <img th:src="@{images/whitebadge.png}">Badges
+                <li class="nav-item mr-3">
+                    <a class="btn btn-outline-danger active" href="/badges">
+                        <img src="images/whitebadge.png">
+                        Badges
                     </a>
                 </li>
+
                 <li class="nav-item mr-3">
-                    <a class="nav-link btn-outline-danger" href="/adminpanel">
+                    <a class="btn btn-outline-danger" href="/adminpanel">
                         <span class="badgeId badgeId-danger">
-                            <img th:src="@{images/whitebadge.png}">
+                            <img th:src="@{/images/whitebadge.png}">
                         </span>Admin Panel
                     </a>
                 </li>
-                <li class="nav-item mr-5">
+                <li class="nav-item mr-3">
                     <button type="button" data-toggle="modal" data-target="#UserDetails">
-                        <img th:src="@{${user.imagePath}}" alt="img" style="height: 32px;width:32px">
+                        <img class="profileImg rounded" th:src="@{${user.imagePath}}" alt="img" style="height: 35px;width:35px">
                     </button>
                 </li>
             </ul>
@@ -66,8 +82,8 @@
                                 <td th:text="${user.username}">test email</td>
                             </tr>
                             <tr>
-                                <td>COMPETENCY</td>
-                                <td>JVM</td>
+                                <td>Role</td>
+                                <td th:each="role:${user.role}"><span th:text="${role.role}"></span></td>
                             </tr>
                         </table>
                     </div>
@@ -87,7 +103,7 @@
 
         <div class="col-lg-3 ml-5">
             <div class="card text-left ">
-                <div class="card-header bg-primary ">
+                <div class="card-header bg-dark ">
                     <div class="float-left">
                         <img src="images/whitebadge.png">
                     </div>
@@ -98,7 +114,7 @@
                 </div>
                 <div class="card-body">
                     <div class="media">
-                        <img class="d-flex mr-3" th:src="@{${user.imagePath}}" style="height: 50px">
+                        <img class="d-flex mr-3 rounded" th:src="@{${user.imagePath}}" style="height: 100px;width: 100px">
                         <div class="media-body">
                             <div class="float-left">
                                 <h6><span th:text="${user.firstName}"></span>&nbsp;
@@ -109,60 +125,136 @@
                                 <img src="images/BrownBadge.png" >
                                 <br>
                                 <span class="mr-4">
-                             2
-                         </span>
+                                     <span th:text="${user.goldBadge}"></span>
+                                 </span>
                                 <span class="mr-4">
-                             2
-                         </span>
+                                     <span th:text="${user.silverBadge}"></span>
+                                 </span>
                                 <span>
-                             2
-                         </span>
+                                     <span th:text="${user.bronzeBadge}"></span>
+                                 </span>
 
                             </div>
-                            <div class="float-right">
-                                <h5>10pts</h5>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col mx-auto">
+                                <h1>
+                                    <span class="d-block" th:text="${user.point}"></span><h5 class="d-block"></h5>pts
+                                    </h5>
+                                </h1>
                             </div>
-
-
-
-
-
+                            <div class="col mx-auto my-auto">
+                                <a class="btn btn-dark" th:href="@{/items}">Redeem Points</a>
+                            </div>
                         </div>
 
                     </div>
-
                 </div>
             </div>
 
         </div>
 
 
-        <div class="col-lg-8 ">
-            <div class="card text-left mb-4">
-                <div class="card-header bg-primary">
-                    <div class="float-left"><img src="images/whitebadge.png"></div>
-                    <div class="float-left text-light ml-5 mr-5"><a href="#" class="text-light"> ALL(4)</a></div>
-                    <div class="float-left text-light ml-5 mr-5"><a href="#" class="text-light">Badges Received</a></div>
-                    <div class="float-left text-light ml-5 mr-5"><a href="#" class="text-light">Badges Shared</a></div>
-                    <div class="float-left text-light ml-5 mr-5"><a href="#" class="text-light">Badges Points</a></div>
+            <div class="col-lg-8 border">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item ml-4 mr-3">
+                        <a class="nav-link active" id="allBadges-tab" data-toggle="tab" href="#allBadges" role="tab" aria-controls="allBadges" aria-selected="true">
+                            All Badges
+                        </a>
+                    </li>
+                    <li class="nav-item ml-5 mr-4">
+                        <a class="nav-link" id="receivedBadges-tab" data-toggle="tab" href="#receivedBadges" role="tab" aria-controls="receivedBadges" aria-selected="false">
+                            Received Badges
+                        </a>
+                    </li>
+                    <li class="nav-item ml-5 mr-4">
+                        <a class="nav-link" id="sharedBadges-tab" data-toggle="tab" href="#sharedBadges" role="tab" aria-controls="sharedBadges" aria-selected="false">
+                            Shared Badges
+                        </a>
+                    </li>
+                    <li class="nav-item ml-5 mr-4">
+                        <a class="nav-link" id="badgesPoints-tab" data-toggle="tab" href="#badgesPoints" role="tab" aria-controls="badgesPoints" aria-selected="false">
+                            Badges Points
+                        </a>
+                    </li>
+                </ul>
+                <div th:id="date" class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active mt-3" id="allBadges" role="tabpanel">
+                        <div class="card-body" th:each="transaction:${pageData}">
+                            <div class="media">
+                                <img class="d-flex mr-3 rounded" th:src="@{${transaction.receiver.imagePath}}" th:if="${transaction.receiver.username==user.username or transaction.sender.username==user.username}"  style="height: 50px;width:50px">
+                                <div class="media-body" >
+                                    <span th:text="${transaction.receiver.firstName}"></span>
+                                    <span th:text="${transaction.receiver.lastName}"></span>
+                                    has received
+                                    <span class="badge badge-success" th:text="${transaction.badge.badge}"></span>
+                                    from
+                                    <span th:text="${transaction.sender.firstName}"></span>
+                                    <span th:text="${transaction.sender.lastName}"></span> <br/>
+                                    Reason: <span th:text="${transaction.message}"></span>
+                                    <br/>
+                                    <br/>
+                                </div>
+                            </div>
+                            <p class="card-link" th:text="${transaction.date}"></p>
+                            <hr/>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade mt-3" id="receivedBadges" role="tabpanel">
+                        <div class="card-body" th:each="transaction:${pageData}" th:if="${transaction.receiver.username==user.username}">
+                            <div class="media">
+                                <img class="d-flex mr-3 rounded" th:src="@{${transaction.receiver.imagePath}}"  style="height: 50px;width:50px">
+                                <div class="media-body" >
+                                    <span th:text="${transaction.receiver.firstName}"></span>
+                                    <span th:text="${transaction.receiver.lastName}"></span>
+                                    has received
+                                    <span class="badge badge-success" th:text="${transaction.badge.badge}"></span>
+                                    from
+                                    <span th:text="${transaction.sender.firstName}"></span>
+                                    <span th:text="${transaction.sender.lastName}"></span> <br/>
+                                    Reason: <span th:text="${transaction.message}"></span>
+                                    <br/>
+                                    <br/>
+                                </div>
+                            </div>
+                            <p class="card-link" th:text="${transaction.date}"></p>
+                            <hr/>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade mt-3" id="sharedBadges" role="tabpanel">
+                        <div class="card-body" th:each="transaction:${pageData}" th:if="${transaction.sender.username==user.username}">
+                            <div class="media">
+                                <img class="d-flex mr-3 rounded" th:src="@{${transaction.receiver.imagePath}}"  style="height: 50px;width:50px">
+                                <div class="media-body" >
+                                    <span th:text="${transaction.receiver.firstName}"></span>
+                                    <span th:text="${transaction.receiver.lastName}"></span>
+                                    has received
+                                    <span class="badge badge-success" th:text="${transaction.badge.badge}"></span>
+                                    from
+                                    <span th:text="${transaction.sender.firstName}"></span>
+                                    <span th:text="${transaction.sender.lastName}"></span> <br/>
+                                    Reason: <span th:text="${transaction.message}"></span>
+                                    <br/>
+                                    <br/>
+                                </div>
+                            </div>
+                            <p class="card-link" th:text="${transaction.date}"></p>
+                            <hr/>
+                        </div>
 
-
-                </div>
-                <div class="card-body">
-
-                </div>
-                <div class="card-footer btn-primary text-right ">
-
+                    </div>
+                    <div class="tab-pane fade mt-3" id="badgesPoints" role="tabpanel">
+                        Badges Points Data
+                    </div>
                 </div>
             </div>
+
         </div>
-    </div>
-
-
 </div>
 
 </body>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 </html>

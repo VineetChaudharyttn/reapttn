@@ -17,8 +17,8 @@
 </head>
 <body>
 <div>
-    <div class="row">
-        <div class="col-lg-6 mt-3">
+    <div class="row navbar">
+        <div class="col-xl-6 mt-3">
             <div class="row">
                 <div class="col-3">
                     <img th:src="@{/images/ReapImg.png}">
@@ -28,7 +28,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 mt-3">
+        <div class="col-xl-6 mt-3">
             <ul class="nav nav-pills justify-content-center">
                 <li class="nav-item mr-3">
                     <a class="btn btn-outline-danger" href="/dashboard">
@@ -46,13 +46,13 @@
                 </li>
 
                 <li class="nav-item mr-3">
-                    <a class="btn btn-danger" href="/adminpanel">
+                    <a class="btn btn-outline-danger active" href="/adminpanel">
                         <img th:src="@{images/whitebadge.png}" >Admin Panel
                     </a>
                 </li>
                 <li class="nav-item mr-3">
                     <button type="button" data-toggle="modal" data-target="#UserDetails">
-                        <img th:src="@{${user.imagePath}}" alt="img" style="height: 32px;width:32px">
+                        <img th:src="@{${user.imagePath}}" alt="img" style="height: 35px;width:35px">
                     </button>
                 </li>
             </ul>
@@ -142,7 +142,7 @@
                         </th>
                     </tr>
                     </thead>
-                    <tbody th:each="userdata:${users}">
+                    <tbody th:each="userdata:${users}" th:if="${user.username!=userdata.username}">
                     <tr>
                         <td><span th:text="${userdata.firstName}"></span>&nbsp;<span th:text="${userdata.lastName}"></span></td>
                         <td th:value="${userdata.getUserId()}">
@@ -159,9 +159,9 @@
                             <input type="checkbox" class="checkActive" th:checked="${userdata.isActive()}" th:value="${userdata.getUserId()}"/>
                         </td>
                         <td th:text="${userdata.username}"></td>
-                        <td>1000</td>
-                        <td>50</td>
-                        <td><span class="ml-3">1</span><span class="ml-4">2</span><span class="ml-4">3</span></td>
+                        <td th:text="${userdata.point}"></td>
+                        <td th:text="${(userdata.bronzeBadge*10)+(userdata.silverBadge*20)+(userdata.goldBadge*30)-userdata.point}">50</td>
+                        <td><span class="ml-3" th:text="${userdata.goldBadge}">1</span><span class="ml-4"  th:text="${userdata.silverBadge}">2</span><span class="ml-4" th:text="${userdata.bronzeBadge}">3</span></td>
                     </tr>
                     </tbody>
                 </table>

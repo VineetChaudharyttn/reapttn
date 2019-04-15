@@ -11,6 +11,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BadgeTransactionService {
 
@@ -35,7 +37,15 @@ public class BadgeTransactionService {
 
 
 
-    public Page<BadgeTransaction> findTransaction(int i) {
-        return badgeTransactionRepo.findAll(new PageRequest(i,3,new Sort(Sort.Direction.ASC,"date")));
+    public List<BadgeTransaction> findTransaction() {
+        return badgeTransactionRepo.findAll(new Sort(Sort.Direction.DESC,"date"));
+    }
+
+    public BadgeTransaction findById(Integer transactionId) {
+        return badgeTransactionRepo.findById(transactionId).orElse(null);
+    }
+
+    public void delete(BadgeTransaction badgeTransaction) {
+        badgeTransactionRepo.delete(badgeTransaction);
     }
 }
