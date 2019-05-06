@@ -65,7 +65,7 @@ public class QuotaInitalization {
 
     }
 
-    private void initalization(User user, int flag) {
+    public void initalization(User user, int flag) {
         Badge gold = badgeService.findById(1);
         Badge silver = badgeService.findById(2);
         Badge bronze = badgeService.findById(3);

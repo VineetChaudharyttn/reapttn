@@ -6,8 +6,6 @@ import com.ttn.reap.repository.BadgeRepo;
 import com.ttn.reap.repository.BadgeTransactionRepo;
 import com.ttn.reap.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +23,8 @@ public class BadgeTransactionService {
     @Autowired
     UserRepo userRepo;
 
-    public void saveComment(CommentCO commentCO){
-        BadgeTransaction badgeTransaction=new BadgeTransaction();
+    public void saveComment(CommentCO commentCO) {
+        BadgeTransaction badgeTransaction = new BadgeTransaction();
         badgeTransaction.setBadge(badgeRepo.findById(commentCO.getBadgeId()).orElse(null));
         badgeTransaction.setSender(userRepo.findByUsername(commentCO.getSenderId()).orElse(null));
         badgeTransaction.setDate(commentCO.getDate());
@@ -36,9 +34,8 @@ public class BadgeTransactionService {
     }
 
 
-
     public List<BadgeTransaction> findTransaction() {
-        return badgeTransactionRepo.findAll(new Sort(Sort.Direction.DESC,"date"));
+        return badgeTransactionRepo.findAll(new Sort(Sort.Direction.DESC, "date"));
     }
 
     public BadgeTransaction findById(Integer transactionId) {

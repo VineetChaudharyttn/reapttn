@@ -1,15 +1,14 @@
 package com.ttn.reap.controller;
 
-import com.ttn.reap.entity.BadgeTransaction;
-import com.ttn.reap.entity.CommentCO;
-import com.ttn.reap.entity.CustomUserDetails;
-import com.ttn.reap.entity.User;
+import com.ttn.reap.entity.*;
+import com.ttn.reap.scheduler.QuotaInitalization;
 import com.ttn.reap.service.*;
 import com.ttn.reap.utility.ImageUploadUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +41,14 @@ public class ReapController {
     @Autowired
     BadgeTransactionService badgeTransactionService;
 
+    @Autowired
+    QuotaInitalization quotaInitalization;
+
+    @Autowired
+    PurchaseService purchaseService;
+
+
+    BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
 
     @GetMapping("/login")
     public String dashboard(Model model) {
@@ -56,13 +63,15 @@ public class ReapController {
         user.setActive(true);
         user.setImagePath(imageUploadUtility.writeImage(multipartFile, user.getFirstName()));
         user.setRole(Arrays.asList(roleService.findByRole("USER")));
-                userService.register(user);
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userService.register(user);
+        quotaInitalization.initalization(user,1);
         return "login";
     }
 
 
     @PreAuthorize("hasAnyRole('USER')")
-    @RequestMapping("/dashboard")
+    @RequestMapping("/")
     public String showDash(@AuthenticationPrincipal final CustomUserDetails userDetails, Model model) {
         User user = userService.findByName(userDetails.getUsername()).orElse(null);
         if (user == null) {
@@ -97,6 +106,7 @@ public class ReapController {
         model.addAttribute("user", user);
         List<BadgeTransaction> list= badgeTransactionService.findTransaction();
         model.addAttribute("pageData",list);
+        model.addAttribute("purchase",purchaseService.getHistory(user));
         return "badges";
     }
 
@@ -150,7 +160,7 @@ public class ReapController {
             model.addAttribute("errorMessage", "Password not reset successfully, You not may Login .........");
             return "login";
         }
-        user.setPassword(password);
+        user.setPassword(bCryptPasswordEncoder.encode(password));
         user.setResetToken(null);
         userService.register(user);
         model.addAttribute("successMessage", "Password reset successfully, You may Login .........");
@@ -162,7 +172,7 @@ public class ReapController {
 
     @GetMapping("/test")
     public String test(){
-        return "test";
+        return "index";
     }
 
 }

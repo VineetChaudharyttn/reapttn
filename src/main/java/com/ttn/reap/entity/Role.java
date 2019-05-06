@@ -13,6 +13,14 @@ public class Role {
     private String role;
     @ManyToMany(mappedBy = "role")
     private List<User> userId=new ArrayList<User>();
+
+
+    public Role() {
+    }
+
+    public Role(String role) {
+        this.role=role;
+    }
 //    @ManyToMany
 //    private List<BadgeRepo> badges=new ArrayList<BadgeRepo>();
 

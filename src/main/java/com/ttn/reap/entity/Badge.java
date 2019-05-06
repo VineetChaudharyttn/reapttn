@@ -13,10 +13,19 @@ public class Badge {
     private Integer badgeId;
     private String badge;
     private Integer weightage;
+    private String imagePath;
     @OneToMany(mappedBy = "badgeId")
     @JsonIgnore
     private List<Quota> quotas=new ArrayList<Quota>();
 
+    public Badge() {
+    }
+
+    public Badge(String badge, Integer weightage, String imagePath) {
+        this.badge = badge;
+        this.weightage = weightage;
+        this.imagePath = imagePath;
+    }
 
     public Integer getBadgeId() {
         return badgeId;
@@ -48,6 +57,14 @@ public class Badge {
 
     public void setWeightage(Integer weightage) {
         this.weightage = weightage;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     @Override

@@ -19,4 +19,8 @@ public class BadgeService {
     public Badge findById(Integer id) {
         return badgeRepo.findById(id).get();
     }
+
+    public void save(Badge badge) {
+        badgeRepo.save(badge);
+    }
 }

@@ -1,13 +1,11 @@
 package com.ttn.reap.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 public class User {
@@ -23,30 +21,49 @@ public class User {
     private boolean active;
     private String imagePath;
     private String resetToken;
-    @Column(columnDefinition = "int default 0")
-    private Integer goldBadge;
-    @Column(columnDefinition = "int default 0")
-    private Integer silverBadge;
-    @Column(columnDefinition = "int default 0")
-    private Integer bronzeBadge;
-    @Column(columnDefinition = "int default 0")
-    private Integer point;
+    @Column(nullable = false, columnDefinition = "Integer default 0")
+    private Integer goldBadge = 0;
+    @Column(nullable = false, columnDefinition = "Integer default 0")
+    private Integer silverBadge = 0;
+    @Column(nullable = false, columnDefinition = "Integer default 0")
+    private Integer bronzeBadge = 0;
+    @Column(nullable = false, columnDefinition = "Integer default 0")
+    private Integer point = 0;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "USER_ID"),
             inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     @JsonIgnore
-    private List<Role> role = new ArrayList<Role>();
+    private List<Role> role;
 
     @OneToMany(mappedBy = "userId")
-    @JsonIgnore
-    private List<Quota> quota=new ArrayList<Quota>();
+    private List<Quota> quota = new ArrayList<Quota>();
 
     @Transient
     private MultipartFile image;
 
+    /*@OneToMany(mappedBy = "user")
+    private Purchase purchase;*/
+
     public User() {
 
+    }
+
+    public User(String firstName, String lastName, String username, String password, boolean active, String imagePath, String resetToken, Integer goldBadge, Integer silverBadge, Integer bronzeBadge, Integer point, List<Role> role, MultipartFile image) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.active = active;
+        this.imagePath = imagePath;
+        this.resetToken = resetToken;
+        this.goldBadge = goldBadge;
+        this.silverBadge = silverBadge;
+        this.bronzeBadge = bronzeBadge;
+        this.point = point;
+        this.role = role;
+        this.quota = quota;
+        this.image = image;
     }
 
     public User(User user) {
@@ -58,7 +75,7 @@ public class User {
         this.role = user.getRole();
         this.imagePath = user.getImagePath();
         this.image = user.getImage();
-        this.quota=user.getQuota();
+        this.quota = user.getQuota();
     }
 
     public Integer getUserId() {
@@ -149,27 +166,6 @@ public class User {
         this.quota = quota;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", active=" + active +
-                ", imagePath='" + imagePath + '\'' +
-                ", resetToken='" + resetToken + '\'' +
-                ", goldBadge=" + goldBadge +
-                ", silverBadge=" + silverBadge +
-                ", bronzeBadge=" + bronzeBadge +
-                ", point=" + point +
-                ", role=" + role +
-                ", quota=" + quota +
-                ", image=" + image +
-                '}';
-    }
-
     public Integer getGoldBadge() {
         return goldBadge;
     }
@@ -202,4 +198,25 @@ public class User {
         this.point = point;
     }
 
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", active=" + active +
+                ", imagePath='" + imagePath + '\'' +
+                ", resetToken='" + resetToken + '\'' +
+                ", goldBadge=" + goldBadge +
+                ", silverBadge=" + silverBadge +
+                ", bronzeBadge=" + bronzeBadge +
+                ", point=" + point +
+                ", role=" + role +
+                ", quota=" + quota +
+                ", image=" + image +
+                '}';
+    }
 }

@@ -13,7 +13,7 @@ import java.util.Date;
 @Component
 public class ImageUploadUtility {
 
-    private static final String absolute="/home/vineet/Downloads/reap/src/main/resources/static";
+    private static final String absolute="/home/vineet/Downloads/reap/out/production/resources/static";
     private static final String realPath="images/profilePics";
     public String writeImage(MultipartFile multipartFile,String name){
 

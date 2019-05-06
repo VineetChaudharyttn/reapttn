@@ -85,8 +85,8 @@ public class ApiController {
     }
 
     @PostMapping("/changeUserRole")
-    public void changeUserRole(@RequestParam("userId") int userId, @RequestParam("selectedRole") String selectedRole) {
-        userService.changeUserRole(userId, selectedRole);
+    public String changeUserRole(@RequestParam("userId") int userId, @RequestParam("selectedRole") String selectedRole) {
+            return userService.changeUserRole(userId, selectedRole);
     }
 
     @PostMapping("/revokeBadge")

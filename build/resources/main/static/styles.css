@@ -1,0 +1,334 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color:aliceblue;
+}
+#center-content{
+    width:95%;
+    margin:0px auto;
+}
+
+header{
+    position: relative;
+    padding: 10px 0px 10px 0px;
+    width: 100%;
+    height: 70px;
+    float: left;
+    background-color: white;
+    display: flex;
+}
+#headLeft{
+    width: 50%;
+    float: left;
+
+}
+
+#reap{
+    width: 27.24%;
+    height: 71.42;
+    font-size: 20px;
+    line-height: 50px;
+    text-align: center;
+    padding-left: 15px;
+    padding-right: 0px;
+    float: left;
+    
+}
+
+#reapimg{
+    width: 65% !important;
+    vertical-align: middle;
+    border: 0;
+}
+
+#reaptext{
+    float: left;
+    width:70%;
+    margin-top: 7.5px;
+    margin-bottom: 0px;
+}
+
+
+
+#headRight{
+      width: 50%;
+    float: right;
+    position: relative;
+    font-size: 14px;
+    color: #333;
+    padding: 0px 20px 0px 20px;
+
+}
+
+div.navbar-custom-menu{
+    float: right;
+    font-size: 14px;
+    height: 49px;
+
+}
+
+.nav{
+    float: left;
+    padding-left: 0px;
+    padding-top: 7px;
+    height: 49px;
+    list-style: none;
+}
+
+.nav li{
+    margin-right: 3px;
+}
+
+
+li.buttons{
+    position: relative;
+    float: left;
+    background-color: white;
+    font-size: 15px;
+    height: 36px;
+    text-align: center;
+    width: auto;
+    border-radius: 5px 5px 5px 5px;
+    list-style: none;
+
+    
+}
+
+li.buttons.active a{
+background-color: #d9177f;
+color: #ffffff;
+}
+.nav li a{
+    position: relative;
+    display: block;
+    cursor: pointer;
+    border-radius: 5px 5px 5px 5px;
+    line-height: 20px;
+    box-sizing: border-box;
+}
+
+.nav li a img.hover{
+    display: none;
+}
+section{
+    width: 70%;
+    height: 35%;
+    float: left;
+}
+article{
+    width: 70%;
+    height: 65%;
+
+}
+aside{
+    width: 30%;
+    height: 35%;
+    float: right;
+    display: inline;
+}
+
+
+#Back_newer{
+    margin-left: 350px;
+    float: left;
+    width: 17%;
+
+}
+#dashboardbtn{
+    float: left;
+    width: auto;
+
+}
+#badges{
+    width: auto;
+    float: left;
+
+}
+#certificate{
+    width: auto;
+    float: left;
+
+
+}
+#bell{
+    width: auto;
+    float: left;
+
+
+}
+#femaleImg{
+    width: auto;
+
+    float: left;
+}
+
+
+
+
+
+.imgs{
+    float: left;
+    margin-top: 15px;
+    background-color: white;
+    font-size: 15px;
+    text-align: center;
+    padding: 10px;
+    width: auto;
+    border: none;
+    height: 40px;
+}
+.belling{
+    float: left;
+    margin-top: 20px;
+    background-color: white;
+    font-size: 15px;
+    text-align: center;
+    padding: 10px;
+    width: auto;
+    border: none;
+    height: 20px;
+}
+
+#RecNo{
+	
+    background-color:#0e5a80;
+    color: white;
+    height:40px ;
+    margin-top: 30px;
+    padding: 10px;
+	border-radius: 5px 5px 0px 0px;
+}
+#RecNo img{
+    float: left;
+    margin-right: 10px;
+    margin-top: 4px;
+    margin-bottom: 5px;
+}
+
+#RecNo h3{
+    font-size: 13px;
+    margin: 8px 0 0 0;
+    text-transform: uppercase;
+    color: #ffffff;
+    font-weight: bold;
+    float: left;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+#frm{
+    background-color: white;
+    border-radius: 0px 0px 5px 5px;
+}
+
+
+#newerName{
+    float: left;
+    margin-left: 20px;
+    margin-top: 20px;
+
+}
+#reward{
+    float: left;
+    margin-top: 20px;
+    margin-left: 40px;
+}
+#karma{
+    float: left;
+    margin-top: 20px;
+    margin-left: 30px;
+}
+#reason{
+    clear: both;
+    margin-left: 20px;
+    margin-top: 40px;
+}
+
+#recog{
+    margin-top: 20px;
+    float:right;
+    margin-right: 20px;
+}
+#NName{
+    width:400px;
+    height: 25px;
+}
+#list{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+}
+a{
+    text-decoration: none;
+}
+#list1{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#Badges1{
+    background-color:#0e5a80;
+    color: white;
+    height:40px ;
+    margin-left: 50px;
+    margin-top: 30px;
+    padding: 10px;
+	border-radius: 5px 5px 0px 0px;
+}
+#userDetails{
+    background-color: white;
+    margin-left: 50px;
+    border-radius: 0px 0px 5px 5px;
+    height: 75px;
+}
+
+#userDetails{
+    padding: 10px 20px 10px 20px;
+}
+
+
+.userpoints{
+    float: left;
+}
+
+.stars{
+    float: left;
+}
+.spoints,.gpoints,.bpoints{
+    float: left;
+    padding: 6px;
+}
+
+.gpoints{
+    clear: left;
+}
+#Badges2{
+    background-color:#0e5a80;
+    color: white;
+    height:40px ;
+    margin-left: 50px;
+    margin-top: 30px;
+    padding: 10px;
+	border-radius: 5px 5px 0px 0px;
+}
+#NewersBoard{
+    background-color: white;
+    margin-left: 50px;
+    border-radius: 0px 0px 5px 5px;
+
+}
+
+.pic{
+    vertical-align: middle;
+    border: 0;
+    border-radius: 5px 5px 5px 5px;
+    box-sizing: border-box;
+    height: 48px;
+    width: 48px;
+    float: left;
+    margin: 0px 17.422px 10px 0px;
+}

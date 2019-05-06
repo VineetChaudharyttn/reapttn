@@ -6,6 +6,7 @@ import com.ttn.reap.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,6 +20,8 @@ public class UserService {
 
     @Autowired
     RoleService roleService;
+
+    @Transactional
     public void register(User user){
         userRepo.save(user);
     }
@@ -54,14 +57,23 @@ public class UserService {
         userRepo.save(user.get());
     }
 
-    public void changeUserRole(int userId, String selectedRole) {
+    public String changeUserRole(int userId, String selectedRole) {
         Optional<User> userOptional = userRepo.findByUserId(userId);
         User user=userOptional.orElse(null);
         List<Role> list=user.getRole();
-        list.add(roleService.findByRole(selectedRole));
+        String message=null;
+        if (!list.contains(roleService.findByRole(selectedRole))) {
+            list.add(roleService.findByRole(selectedRole));
+            message=selectedRole+" role is added";
+            System.out.println(message);
+        }
+        else if (list.contains(roleService.findByRole(selectedRole)))  {
+            System.out.println("remove");
+            list.remove(roleService.findByRole(selectedRole));
+            message=selectedRole+" role is removed.";
+        }
         user.setRole(list);
-        System.out.println(user);
         userRepo.save(user);
-
+        return message;
     }
 }

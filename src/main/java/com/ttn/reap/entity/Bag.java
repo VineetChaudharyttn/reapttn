@@ -72,4 +72,17 @@ public class Bag {
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
+
+    @Override
+    public String toString() {
+        return "Bag{" +
+                "itemBagId=" + itemBagId +
+                ", itemId=" + itemId +
+                ", name='" + name + '\'' +
+                ", pointsWorth=" + pointsWorth +
+                ", quantity=" + quantity +
+                ", total=" + total +
+                ", userId=" + userId +
+                '}';
+    }
 }

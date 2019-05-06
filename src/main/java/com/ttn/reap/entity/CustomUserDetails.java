@@ -10,13 +10,10 @@ import java.util.stream.Collectors;
 public class CustomUserDetails extends User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (isActive()) {
             return getRole()
                     .stream()
                     .map(role -> new SimpleGrantedAuthority("ROLE_"+role.getRole()))
                     .collect(Collectors.toList());
-        }
-        return null;
     }
 
 

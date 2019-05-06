@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -24,18 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private PasswordEncoder getPasswordEncoder() {
-        return new PasswordEncoder() {
-            @Override
-            public String encode(CharSequence rawPassword) {
-                return rawPassword.toString();
-            }
-
-            @Override
-            public boolean matches(CharSequence rawPassword, String encodedPassword) {
-
-                return rawPassword.equals(encodedPassword);
-            }
-        };
+        return new BCryptPasswordEncoder();
     }
 
 
@@ -43,9 +33,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("**/dashboard", "**/badges", "**/adminpanel","**/items").authenticated()
+                .antMatchers("/", "**/badges", "**/adminpanel","**/items").authenticated()
                 .anyRequest().permitAll()
                 .and().formLogin().loginPage("/login").permitAll()
-                .defaultSuccessUrl("/dashboard").and().logout().logoutSuccessUrl("/login");
+                .defaultSuccessUrl("/").and().logout().logoutSuccessUrl("/login");
     }
 }
